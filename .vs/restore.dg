@@ -1,1 +1,6 @@
+#:D:\Projects\int\NotificationsTest\src\NotificationTest.Business\NotificationTest.Business.xproj
+D:\Projects\int\NotificationsTest\src\NotificationTest.Business\NotificationTest.Business.xproj|D:\Projects\int\NotificationsTest\src\NotificationsTest.DataAccess\NotificationsTest.DataAccess.xproj
 #:D:\Projects\int\NotificationsTest\src\NotificationsTest\NotificationsTest.xproj
+D:\Projects\int\NotificationsTest\src\NotificationsTest\NotificationsTest.xproj|D:\Projects\int\NotificationsTest\src\NotificationsTest.DataAccess\NotificationsTest.DataAccess.xproj
+D:\Projects\int\NotificationsTest\src\NotificationsTest\NotificationsTest.xproj|D:\Projects\int\NotificationsTest\src\NotificationTest.Business\NotificationTest.Business.xproj
+D:\Projects\int\NotificationsTest\src\NotificationTest.Business\NotificationTest.Business.xproj|D:\Projects\int\NotificationsTest\src\NotificationsTest.DataAccess\NotificationsTest.DataAccess.xproj

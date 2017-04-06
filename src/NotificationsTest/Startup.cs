@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NotificationsTest.DataAccess;
+using NotificationTest.Business;
 using React.AspNet;
 
 namespace NotificationsTest
@@ -32,8 +37,17 @@ namespace NotificationsTest
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
 
+            services
+                .AddEntityFrameworkInMemoryDatabase()
+                .AddDbContext<NotificationsContext>(options => options.UseInMemoryDatabase());
+
+            services.AddScoped<NotificationsContext, NotificationsContext>();
+            services.AddTransient<INotificationService, NotificationService>();
+
             // Add framework services.
             services.AddMvc();
+
+            services.AddMediatR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

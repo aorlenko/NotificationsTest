@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NotificationsTest.DataAccess;
+using NotificationsTest.DataAccess.Models;
 using NotificationsTest.Models;
+using NotificationTest.Business;
+using RegisterUser = NotificationsTest.Models.RegisterUser;
 
 namespace NotificationsTest.Controllers
 {
     public class HomeController : Controller
     {
         private static readonly IList<CommentModel> _comments;
+
+        private readonly IMediator _mediator;
+        private readonly INotificationService _notificationService;
+        private readonly NotificationsContext _dbContext;
+
+        public HomeController(NotificationsContext dbContext, IMediator mediator,
+            INotificationService notificationService)
+        {
+            _mediator = mediator;
+            _notificationService = notificationService;
+            _dbContext = dbContext;
+        }
 
         static HomeController()
         {
@@ -57,6 +74,25 @@ namespace NotificationsTest.Controllers
             comment.Id = _comments.Count + 1;
             _comments.Add(comment);
             return Content("Success :)");
+        }
+
+        [HttpPost]
+        [Route("comments/register")]
+        public async Task<IActionResult> Register(NotificationTest.Business.RegisterUser registerUser)
+        {
+            //int maxId = 0;
+
+            //if (_dbContext.Messages.Any())
+            //    maxId = _dbContext.Messages.Max(e => e.Id);
+
+            //_dbContext.Messages.Add(new Message() { Id = ++maxId });
+            //_dbContext.SaveChanges();
+
+            //await _mediator.Send(registerUser);
+
+            int generatedId = _notificationService.SendMessage(registerUser);
+
+            return Json(generatedId);
         }
     }
 }

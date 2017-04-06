@@ -9,7 +9,6 @@ using NotificationsTest.DataAccess;
 using NotificationsTest.DataAccess.Models;
 using NotificationsTest.Models;
 using NotificationTest.Business;
-using RegisterUser = NotificationsTest.Models.RegisterUser;
 
 namespace NotificationsTest.Controllers
 {
@@ -90,8 +89,7 @@ namespace NotificationsTest.Controllers
 
             //await _mediator.Send(registerUser);
 
-            int generatedId = _notificationService.SendMessage(registerUser);
-
+            int generatedId = await _notificationService.SendMessage(registerUser);
             return Json(generatedId);
         }
     }

@@ -20,7 +20,7 @@ namespace NotificationTest.Business
             _dbContext = dbContext;
         }
 
-        public async Task<int> SendMessage(RegisterUser message)
+        public async Task<int> SendMessage(SendMessageCommand message)
         {
             int maxId = 0;
 
@@ -30,6 +30,7 @@ namespace NotificationTest.Business
             _dbContext.Messages.Add(new Message() { Id = ++maxId });
             _dbContext.SaveChanges();
 
+            // fake send NewMessage via async service bus
             await _mediator.Send(message);
 
             return maxId;

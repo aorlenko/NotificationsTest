@@ -1,8 +1,29 @@
-﻿var data = [
-  { id: 1, author: "1Daniel Lo Nigro", text: "Hello ReactJS.NET World!" },
-  { id: 2, author: "1Pete Hunt", text: "This is one comment" },
-  { id: 3, author: "Jordan Walke", text: "This is *another* comment" }
-];
+﻿
+class MessageForm extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+                <form>
+  <div className="form-group">
+    <label for="recipients">Recipients</label>
+    <input type="text" className="form-control" id="recipients" placeholder="Recipients"/>
+  </div>
+  <div className="form-group">
+    <label for="subject">Subject</label>
+    <input type="text" className="form-control" id="subject" placeholder="Subject" />
+  </div>
+  <div className="form-group">
+    <label for="message">Message</label>
+    <input type="text" className="form-control" id="message" placeholder="Message"/>
+  </div>
+  <button type="submit" className="btn btn-default">Submit</button>
+</form>
+            )
+    }
+}
 
 class Test extends React.Component {
     constructor(props) {
@@ -132,6 +153,7 @@ var CommentBox = React.createClass({
 });
 
 ReactDOM.render(
-  <CommentBox url="/comments" submitUrl="/comments/register" pollInterval={2000} />,
+  //<CommentBox url="/comments" submitUrl="/comments/register" pollInterval={2000} />,
+  <MessageForm/>,
   document.getElementById('content')
 );

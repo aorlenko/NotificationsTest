@@ -77,19 +77,9 @@ namespace NotificationsTest.Controllers
 
         [HttpPost]
         [Route("comments/register")]
-        public async Task<IActionResult> Register(NotificationTest.Business.RegisterUser registerUser)
+        public async Task<IActionResult> Register(SendMessageCommand sendMessageCommand)
         {
-            //int maxId = 0;
-
-            //if (_dbContext.Messages.Any())
-            //    maxId = _dbContext.Messages.Max(e => e.Id);
-
-            //_dbContext.Messages.Add(new Message() { Id = ++maxId });
-            //_dbContext.SaveChanges();
-
-            //await _mediator.Send(registerUser);
-
-            int generatedId = await _notificationService.SendMessage(registerUser);
+            int generatedId = await _notificationService.SendMessage(sendMessageCommand);
             return Json(generatedId);
         }
     }

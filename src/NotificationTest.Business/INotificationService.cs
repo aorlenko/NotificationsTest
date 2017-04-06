@@ -8,6 +8,6 @@ namespace NotificationTest.Business
 {
     public interface INotificationService
     {
-        Task<int> SendMessage(RegisterUser message);
+        Task<int> SendMessage(SendMessageCommand message);
     }
 }

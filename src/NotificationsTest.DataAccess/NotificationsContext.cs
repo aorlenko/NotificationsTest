@@ -11,5 +11,7 @@ namespace NotificationsTest.DataAccess
         }
 
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<MessageRecipient> MessageRecipients { get; set; }
     }
 }

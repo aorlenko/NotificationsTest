@@ -1,2 +1,5 @@
 /src/NotificationsTest/bin
 /src/NotificationsTest/obj
+/src/NotificationsTest.DataAccess
+/src/NotificationTest.Business/bin/Debug/net46
+/src/NotificationTest.Business/obj/Debug/net46

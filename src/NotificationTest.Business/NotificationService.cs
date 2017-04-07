@@ -1,39 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using NotificationsTest.DataAccess;
 using NotificationsTest.DataAccess.Models;
+using NotificationTest.Business.Utils;
 
 namespace NotificationTest.Business
 {
     public class NotificationService : INotificationService
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator _bus;
         private readonly NotificationsContext _dbContext;
 
-        public NotificationService(NotificationsContext dbContext, IMediator mediator)
+        public NotificationService(NotificationsContext dbContext, IMediator bus)
         {
-            _mediator = mediator;
+            _bus = bus;
             _dbContext = dbContext;
         }
 
         public async Task<int> SendMessage(SendMessageCommand message)
         {
-            int maxId = 0;
-
-            if (_dbContext.Messages.Any())
-                maxId = _dbContext.Messages.Max(e => e.Id);
-
-            _dbContext.Messages.Add(new Message() { Id = ++maxId });
-            _dbContext.SaveChanges();
+            var newMessage = SaveNewMessage(message);
 
             // fake send NewMessage via async service bus
-            await _mediator.Send(message);
+            await _bus.Send(message);
 
-            return maxId;
+            return newMessage.Id;
+        }
+
+        private Message SaveNewMessage(SendMessageCommand message)
+        {
+            var newMessage = new Message
+                {
+                    Body = message.Message,
+                    Subject = message.Subject,
+                    IsSent = false
+                };
+
+            var recipientNames = RecipientNameParser.Parse(message.Recipients);
+
+            _dbContext.Messages.Add(newMessage);
+
+            foreach (var recipientName in recipientNames)
+            {
+                var messageRecipient = new MessageRecipient
+                {
+                    Message = newMessage,
+                    Name = recipientName
+                };
+
+                _dbContext.MessageRecipients.Add(messageRecipient);
+            }
+
+            _dbContext.SaveChanges();
+
+            return newMessage;
         }
     }
 }

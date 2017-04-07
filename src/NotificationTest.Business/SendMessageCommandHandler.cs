@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using NotificationTest.Business.Utils;
 
 namespace NotificationTest.Business
 {
@@ -20,8 +21,19 @@ namespace NotificationTest.Business
         /// <returns></returns>
         private async Task<bool> SendNotification(SendMessageCommand sendMessageCommand)
         {
-            Thread.Sleep(5000); // simulate long-running operation
+            var recipientNames = RecipientNameParser.Parse(sendMessageCommand.Recipients);
+
+            foreach (var recipientName in recipientNames)
+            {
+                SendMessage(recipientName, sendMessageCommand.Message);
+            }
+
             return true;
+        }
+
+        private void SendMessage(string recipientName, string body)
+        {
+            Thread.Sleep(1000); // simulate long-running operation
         }
     }
 }

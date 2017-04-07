@@ -76,8 +76,8 @@ namespace NotificationsTest.Controllers
         }
 
         [HttpPost]
-        [Route("comments/register")]
-        public async Task<IActionResult> Register(SendMessageCommand sendMessageCommand)
+        [Route("messages/send")]
+        public async Task<IActionResult> SendMessage(SendMessageCommand sendMessageCommand)
         {
             int generatedId = await _notificationService.SendMessage(sendMessageCommand);
             return Json(generatedId);

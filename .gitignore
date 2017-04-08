@@ -3,3 +3,5 @@
 /src/NotificationsTest.DataAccess
 /src/NotificationTest.Business/bin/Debug/net46
 /src/NotificationTest.Business/obj/Debug/net46
+/src/NotificationsTest/project.lock.json
+/src/NotificationTest.Business/project.lock.json

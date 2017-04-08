@@ -23,7 +23,7 @@ var MessageForm = React.createClass ({
         var that = this;
         
         var data = new FormData();
-        debugger;
+
         data.append('recipients', this.state.recipients);
         data.append('message', this.state.message);
         data.append('subject', this.state.subject);
@@ -62,6 +62,7 @@ var MessageForm = React.createClass ({
                   <div className="form-group">
                     <label htmlFor="recipients">Recipients</label>
                     <input type="text" value={this.state.recipients} onChange={this.handleRecipientsChange} className="form-control" id="recipients" placeholder="Recipients" required />
+                    (must be separated by semicolon)
                   </div>
                   <div className="form-group">
                     <label htmlFor="subject">Subject</label>

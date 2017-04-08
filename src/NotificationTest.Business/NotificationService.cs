@@ -3,6 +3,7 @@ using MediatR;
 using NotificationsTest.DataAccess;
 using NotificationsTest.DataAccess.Models;
 using NotificationTest.Business.Utils;
+using System;
 
 namespace NotificationTest.Business
 {
@@ -19,6 +20,11 @@ namespace NotificationTest.Business
 
         public async Task<int> SendMessage(SendMessageCommand message)
         {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+            if (message.Message == null) throw new ArgumentNullException(nameof(message.Message));
+            if (message.Recipients == null) throw new ArgumentNullException(nameof(message.Recipients));
+            if (message.Subject == null) throw new ArgumentNullException(nameof(message.Subject));
+
             var newMessage = SaveNewMessage(message);
 
             // fake send NewMessage via async service bus
